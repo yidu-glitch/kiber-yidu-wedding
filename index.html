@@ -7,29 +7,24 @@
     <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        :root { --primary: #8c765c; --bg-creme: #fcf9f5; --text-main: #4a4a4a; --font-display: 'Alex Brush', cursive; }
-        body { font-family: 'Montserrat', sans-serif; background-color: var(--bg-creme); color: var(--text-main); line-height: 1.7; }
+        :root { --primary: #8c765c; --bg-creme: #fcf9f5; }
+        body { font-family: 'Montserrat', sans-serif; background-color: var(--bg-creme); line-height: 1.7; }
         
-        /* Fixed Backgrounds */
-        #landing { background: linear-gradient(rgba(0,0,0,0.25), rgba(0,0,0,0.35)), url('wedding-photo.jpg') no-repeat center/cover; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; color: white; text-align: center; }
-        .story-img { background: url('img_6101.jpg') no-repeat center/cover; height: 500px; width: 100%; }
+        /* Updated Image Paths - ensure files match these exactly */
+        #landing { background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('wedding.jpg') no-repeat center/cover; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; color: white; text-align: center; }
+        .story-img { background: url('story.jpg') no-repeat center/cover; height: 500px; width: 100%; border-radius: 2px; }
         
-        /* Gallery */
         .gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; width: 90%; max-width: 1000px; margin: 0 auto; }
-        .img-1 { background-image: url('img_0278.jpg'); }
-        .img-2 { background-image: url('img_0833.jpg'); }
-        .img-3 { background-image: url('img_6279.png'); }
+        .img-1 { background-image: url('gallery1.jpg'); }
+        .img-2 { background-image: url('gallery2.jpg'); }
+        .img-3 { background-image: url('gallery3.png'); }
         .gallery-img-wrapper { width: 100%; height: 400px; background-size: cover; background-position: center; }
 
-        /* Navigation & Sections */
         .page-section { display: none; padding: 120px 20px; min-height: 100vh; flex-direction: column; align-items: center; }
         .active-page { display: flex; }
         .navbar { position: fixed; top: 0; width: 100%; background: rgba(252, 249, 245, 0.95); display: flex; justify-content: center; gap: 30px; padding: 20px; z-index: 100; }
         .nav-link { cursor: pointer; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 2px; }
-        
-        /* RSVP & Countdown */
         .rsvp-iframe { width: 100%; max-width: 640px; height: 800px; border: none; }
-        .countdown { display: flex; gap: 25px; background: rgba(0,0,0,0.25); backdrop-filter: blur(10px); padding: 20px; margin-top: 30px; }
     </style>
 </head>
 <body>
@@ -42,30 +37,21 @@
 
     <section id="landing" class="page-section active-page">
         <h1>Kiber & Yidu</h1>
-        <div class="countdown">
-            <div><span id="days">00</span> DAYS</div>
-            <div><span id="hours">00</span> HOURS</div>
-            <div><span id="minutes">00</span> MINS</div>
-        </div>
     </section>
 
     <section id="story" class="page-section">
         <h2>Our Story</h2>
         <div class="story-img"></div>
-        <p>Years of shared memories...</p>
     </section>
 
-   <section id="gallery" class="page-section">
-    <div class="section-header">
+    <section id="gallery" class="page-section">
         <h2>Gallery</h2>
-        <p>Moments captured in time</p>
-    </div>
-    <div class="gallery-grid">
-        <div class="gallery-item"><div class="gallery-img-wrapper img-1"></div></div>
-        <div class="gallery-item"><div class="gallery-img-wrapper img-2"></div></div>
-        <div class="gallery-item"><div class="gallery-img-wrapper img-3"></div></div>
-    </div>
-</section>
+        <div class="gallery-grid">
+            <div class="gallery-img-wrapper img-1"></div>
+            <div class="gallery-img-wrapper img-2"></div>
+            <div class="gallery-img-wrapper img-3"></div>
+        </div>
+    </section>
 
     <section id="rsvp" class="page-section">
         <h2>RSVP</h2>
@@ -77,14 +63,6 @@
             document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active-page'));
             document.getElementById(id).classList.add('active-page');
         }
-        // Countdown Logic
-        const target = new Date("July 18, 2026 16:00:00").getTime();
-        setInterval(() => {
-            const now = new Date().getTime(), diff = target - now;
-            document.getElementById("days").innerText = Math.floor(diff / (1000*60*60*24));
-            document.getElementById("hours").innerText = Math.floor((diff % (1000*60*60*24)) / (1000*60*60));
-            document.getElementById("minutes").innerText = Math.floor((diff % (1000*60*60)) / (1000*60));
-        }, 60000);
     </script>
 </body>
 </html>
