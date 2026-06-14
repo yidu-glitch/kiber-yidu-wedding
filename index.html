@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kiber & Yidu — The Wedding</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- Core Reset & Styling Variables --- */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --primary: #8c765c;
+            --primary-light: #ae9b84;
+            --bg-creme: #fcf9f5;
+            --bg-dark: #2c251e;
+            --text-main: #4a4a4a;
+            --text-muted: #8e8e8e;
+            --font-display: 'Alex Brush', cursive;
+            --font-sans: 'Montserrat', sans-serif;
+            --transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            
+            --bg-home: url('wedding-photo.jpg.jpg');
+            --bg-story: url('IMG_6101 (2).jpg');
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--bg-creme);
+            color: var(--text-main);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        .app-container {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* --- Navigation Bar --- */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(252, 249, 245, 0.95);
+            backdrop-filter: blur(5px);
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            padding: 20px 0;
+            z-index: 100;
+            border-bottom: 1px solid rgba(140, 118, 92, 0.1);
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--text-main);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+            padding-bottom: 4px;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: var(--primary);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 1px;
+            background-color: var(--primary);
+            transition: var(--transition);
+            transform: translateX(-50%);
+        }
+
+        .nav-link.active::after, .nav-link:hover::after {
+            width: 80%;
+        }
+
+        /* --- Floating Photo Button --- */
+        .float-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: var(--primary);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            z-index: 1000;
+            transition: var(--transition);
+        }
+
+        .float-btn:hover {
+            background-color: var(--bg-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+
+        /* --- Multi-Page Sections --- */
+        .page-section {
+            display: none;
+            width: 100%;
+            min-height: 100vh;
+            padding: 120px 20px 60px 20px;
+            animation: fadeIn 0.6s ease-in-out forwards;
+        }
+
+        .page-section.active-page {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-header h2 {
+            font-family: var(--font-display);
+            font-size: 3.5rem;
+            color: var(--primary);
+            font-weight: 400;
+            line-height: 1.2;
+        }
+
+        .section-header p {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            color: var(--text-muted);
+            margin-top: 5px;
+        }
+
+        /* --- SECTION 1: HOME LANDING --- */
+        #landing {
+            padding: 0;
+            background: linear-gradient(rgba(0,0,0,0.25), rgba(0,0,0,0.35)), 
+                        var(--bg-home) no-repeat center 20%/cover;
+            justify-content: center;
+            align-items: center;
+            color: #ffffff;
+            text-align: center;
+        }
+
+        #landing .host-names {
+            font-family: var(--font-display);
+            font-size: 5.5rem;
+            font-weight: 400;
+            text-shadow: 0 3px 12px rgba(0,0,0,0.5);
+            line-height: 1.1;
+        }
+
+        #landing .tagline {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 6px;
+            margin: 20px 0 40px 0;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+        }
+
+        .countdown {
+            display: flex;
+            gap: 25px;
+            background: rgba(0, 0, 0, 0.25);
+            backdrop-filter: blur(10px);
+            padding: 20px 35px;
+            border-radius: 2px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .countdown-item {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #fcf9f5;
+        }
+
+        .countdown-number {
+            font-size: 2rem;
+            font-weight: 300;
+            display: block;
+            line-height: 1.2;
+        }
+
+        /* --- SECTION 2: OUR STORY --- */
+        .story-container {
+            max-width: 900px;
+            display: flex;
+            align-items: center;
+            gap: 50px;
+            margin-top: 20px;
+        }
+
+        .story-img {
+            flex: 1;
+            height: 520px;
+            background: var(--bg-story) no-repeat center center/cover;
+            border-radius: 2px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+            position: relative;
+        }
+
+        .story-img::before {
+            content: '';
+            position: absolute;
+            top: -15px;
+            left: -15px;
+            right: 15px;
+            bottom: 15px;
+            border: 1px solid var(--primary);
+            z-index: -1;
+        }
+
+        .story-content {
+            flex: 1;
+        }
+
+        .story-content h3 {
+            font-family: var(--font-display);
+            font-size: 2.2rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-weight: 400;
+        }
+
+        .story-content p {
+            margin-bottom: 20px;
+            color: var(--text-main);
+            font-size: 0.95rem;
+        }
+
+        /* --- SECTION 3: GALLERY --- */
+        .gallery-grid {
+            max-width: 1000px;
+            width: 100%;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            padding: 0 20px;
+        }
+
+        .gallery-item {
+            overflow: hidden;
+            height: 400px;
+            position: relative;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.04);
+        }
+
+        .gallery-item div.gallery-img-wrapper {
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .img-1 { background-image: url('IMG_0278 (2).jpg'); }
+        .img-2 { background-image: url('IMG_0833.jpg'); }
+        .img-3 { background-image: url('IMG_6279.png'); }
+
+        .gallery-item:hover div.gallery-img-wrapper {
+            transform: scale(1.05);
+        }
+
+        /* --- SECTION 4: RSVP --- */
+        .rsvp-card {
+            background: #ffffff;
+            max-width: 600px;
+            width: 100%;
+            padding: 20px;
+            border-radius: 2px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.03);
+            border: 1px solid #eae1d4;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .rsvp-embed-wrapper {
+            width: 100%;
+        }
+
+        /* --- Mobile Responsiveness --- */
+        @media (max-width: 768px) {
+            .navbar { gap: 15px; padding: 15px 0; }
+            .nav-link { font-size: 0.7rem; letter-spacing: 1px; }
+            .float-btn { bottom: 20px; right: 20px; padding: 12px 20px; font-size: 0.75rem; }
+            #landing .host-names { font-size: 3.5rem; }
+            #landing .tagline { font-size: 0.75rem; letter-spacing: 4px; }
+            .countdown { padding: 15px 20px; gap: 15px; }
+            .countdown-number { font-size: 1.4rem; }
+            .story-container { flex-direction: column; gap: 30px; }
+            .story-img { width: 100%; height: 350px; }
+            .gallery-grid { grid-template-columns: 1fr; }
+            .section-header h2 { font-size: 2.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+        
+        <nav class="navbar">
+            <a class="nav-link active" onclick="navigateTo('landing')">Home</a>
+            <a class="nav-link" onclick="navigateTo('story')">Our Story</a>
+            <a class="nav-link" onclick="navigateTo('gallery')">Gallery</a>
+            <a class="nav-link" onclick="navigateTo('rsvp')">RSVP</a>
+        </nav>
+
+        <section id="landing" class="page-section active-page">
+            <h1 class="host-names">Kiber & Yidu</h1>
+            <p class="tagline">Are getting married</p>
+            
+            <div class="countdown" id="countdown">
+                <div class="countdown-item"><span class="countdown-number" id="days">00</span>days</div>
+                <div class="countdown-item"><span class="countdown-number" id="hours">00</span>hours</div>
+                <div class="countdown-item"><span class="countdown-number" id="minutes">00</span>mins</div>
+            </div>
+        </section>
+
+        <section id="story" class="page-section">
+            <div class="section-header">
+                <h2>Our Story</h2>
+                <p>How it all began</p>
+            </div>
+            <div class="story-container">
+                <div class="story-img"></div>
+                <div class="story-content">
+                    <h3>The Beginning of Us</h3>
+                    <p>What began as friendship slowly grew into something beautiful.
+Years of shared memories endless conversations and quiet support created a bond that became impossible to ignore</p>
+                    <p>Through every season we have grown together learning from each other choosing each other and building a love rooted in trust understanding and genuine connections.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="gallery" class="page-section">
+            <div class="section-header">
+                <h2>Gallery</h2>
+                <p>Moments captured in time</p>
+            </div>
+            <div class="gallery-grid">
+                <div class="gallery-item"><div class="gallery-img-wrapper img-1"></div></div>
+                <div class="gallery-item"><div class="gallery-img-wrapper img-2"></div></div>
+                <div class="gallery-item"><div class="gallery-img-wrapper img-3"></div></div>
+            </div>
+        </section>
+
+        <section id="rsvp" class="page-section">
+            <div class="section-header">
+                <h2>RSVP</h2>
+                <p>Be there to celebrate with us</p>
+            </div>
+            <div class="rsvp-card">
+                <div class="rsvp-embed-wrapper">
+                    <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdyPwIDHsfq82JlVLQdjM6XVngPWkhoz3ZQXrg1kCRUKp-ntQ/viewform?embedded=true" width="640" height="680" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Floating Photo Link -->
+    <a href="https://t.me/TheWeddingAlbumBot" target="_blank" class="float-btn">Share Photos</a>
+
+    <script>
+        function navigateTo(sectionId) {
+            const sections = document.querySelectorAll('.page-section');
+            sections.forEach(section => section.classList.remove('active-page'));
+
+            const targetSection = document.getElementById(sectionId);
+            if (targetSection) {
+                targetSection.classList.add('active-page');
+            }
+
+            const links = document.querySelectorAll('.nav-link');
+            links.forEach(link => link.classList.remove('active'));
+            
+            const activeLink = Array.from(links).find(link => link.getAttribute('onclick').includes(sectionId));
+            if (activeLink) activeLink.classList.add('active');
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        const eventTimeline = new Date("July 18, 2026 16:00:00").getTime();
+
+        function runCountdown() {
+            const rightNow = new Date().getTime();
+            const timeSpan = eventTimeline - rightNow;
+
+            if (timeSpan > 0) {
+                const calculatedDays = Math.floor(timeSpan / (1000 * 60 * 60 * 24));
+                const calculatedHours = Math.floor((timeSpan % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const calculatedMinutes = Math.floor((timeSpan % (1000 * 60 * 60)) / (1000 * 60));
+
+                document.getElementById("days").innerText = calculatedDays.toString().padStart(2, '0');
+                document.getElementById("hours").innerText = calculatedHours.toString().padStart(2, '0');
+                document.getElementById("minutes").innerText = calculatedMinutes.toString().padStart(2, '0');
+            } else {
+                document.getElementById("countdown").innerHTML = "<p style='letter-spacing:2px; font-weight:500;'>Today is the Day!</p>";
+            }
+        }
+        runCountdown();
+        setInterval(runCountdown, 60000);
+    </script>
+</body>
+</html>
