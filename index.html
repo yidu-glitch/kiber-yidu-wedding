@@ -7,11 +7,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        :root { --primary: #8c765c; --bg-creme: #fcf9f5; }
-        body { font-family: 'Montserrat', sans-serif; background-color: var(--bg-creme); line-height: 1.7; }
+        :root { --primary: #8c765c; --bg-creme: #fcf9f5; --text-main: #4a4a4a; --font-display: 'Alex Brush', cursive; }
+        body { font-family: 'Montserrat', sans-serif; background-color: var(--bg-creme); color: var(--text-main); line-height: 1.7; }
         
-        /* Updated Image Paths - ensure files match these exactly */
-        #landing { background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('wedding.jpg') no-repeat center/cover; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; color: white; text-align: center; }
+        /* FIXED: Pointing to clean, standardized names */
+        #landing { background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('landing.jpg') no-repeat center/cover; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; color: white; text-align: center; }
         .story-img { background: url('story.jpg') no-repeat center/cover; height: 500px; width: 100%; border-radius: 2px; }
         
         .gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; width: 90%; max-width: 1000px; margin: 0 auto; }
@@ -37,6 +37,11 @@
 
     <section id="landing" class="page-section active-page">
         <h1>Kiber & Yidu</h1>
+        <div class="countdown" id="countdown">
+            <div><span id="days">00</span> DAYS</div>
+            <div><span id="hours">00</span> HOURS</div>
+            <div><span id="minutes">00</span> MINS</div>
+        </div>
     </section>
 
     <section id="story" class="page-section">
@@ -63,6 +68,16 @@
             document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active-page'));
             document.getElementById(id).classList.add('active-page');
         }
+        // Fixed Countdown Logic
+        const target = new Date("July 18, 2026 16:00:00").getTime();
+        function updateTimer() {
+            const now = new Date().getTime(), diff = target - now;
+            document.getElementById("days").innerText = Math.max(0, Math.floor(diff / (1000*60*60*24)));
+            document.getElementById("hours").innerText = Math.max(0, Math.floor((diff % (1000*60*60*24)) / (1000*60*60)));
+            document.getElementById("minutes").innerText = Math.max(0, Math.floor((diff % (1000*60*60)) / (1000*60)));
+        }
+        setInterval(updateTimer, 60000);
+        updateTimer();
     </script>
 </body>
 </html>
